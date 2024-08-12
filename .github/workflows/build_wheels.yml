@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: Install dependencies (Windows)
-        if: matrix.os == 'windows-latest'
+        if: matrix.os == 'windows-2019'
         run: |
             choco install opengl
             choco install glew
