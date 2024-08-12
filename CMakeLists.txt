@@ -41,7 +41,7 @@ IF(FETCH_DEPENDENCIES)
     FetchContent_Declare(
         VTK
         GIT_REPOSITORY https://github.com/Kitware/VTK.git
-        GIT_TAG        v9.1.0
+        GIT_TAG        v9.3.1
     )
     FetchContent_MakeAvailable(VTK)
     SET(VTK_DIR ${vtk_BINARY_DIR})
