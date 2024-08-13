@@ -35,11 +35,12 @@ jobs:
             submodules: true
 
       - name: Download VTK binary
-          uses: actions/tool-cache
-          with:
-            url: ${{ matrix.vtk_url }}
-            extract: true
-            dest: ./be/install/vtk
+        run: |
+          curl -L ${{ matrix.vtk_url }} -o vtk-wheel-sdk.tar.xz
+
+      - name: Extract VTK binary
+        run: |
+          tar -xJvf vtk-wheel-sdk.tar.xz -C ./be/install/vtk
 
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
