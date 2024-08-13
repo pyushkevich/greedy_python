@@ -34,14 +34,17 @@ jobs:
         with:
             submodules: true
 
+      - name: Create directory for VTK install
+        run: |
+          mkdir -p ./be/install/vtk
+
       - name: Download VTK binary
         run: |
-          curl -L ${{ matrix.vtk_url }} -o vtk-wheel-sdk.tar.xz
+          curl -L ${{ matrix.vtk_url }} -o ./be/install/vtk/vtk-wheel-sdk.tar.xz
 
       - name: Extract VTK binary
         run: |
-          mkdir -p ./be/install/vtk
-          tar -xJvf vtk-wheel-sdk.tar.xz -C ./be/install/vtk
+          tar -xJvf ./be/install/vtk/vtk-wheel-sdk.tar.xz -C ./be/install/vtk
 
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
