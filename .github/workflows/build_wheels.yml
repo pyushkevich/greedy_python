@@ -35,7 +35,7 @@ jobs:
             submodules: true
 
       - name: Download VTK binary
-          uses: actions/tool-cache@v2
+          uses: actions/tool-cache
           with:
             url: ${{ matrix.vtk_url }}
             extract: true
