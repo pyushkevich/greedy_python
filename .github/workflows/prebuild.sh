@@ -34,7 +34,7 @@ git clone -b master https://github.com/pyushkevich/greedy.git greedy
 cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=./install \
-    -DCMAKE_PREFIX_PATH=./install:./install/vtk/vtk-9.3.1.data/headers/cmake \
+    -DCMAKE_PREFIX_PATH="./install;./install/vtk/vtk-9.3.1.data/headers/cmake" \
     -B greedy/build \
     greedy
 
