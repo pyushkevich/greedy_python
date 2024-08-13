@@ -340,9 +340,9 @@ public:
     for(auto &it_level: metric_log)
     {
       py::dict out_level;
-      py::array_t<double> total_metric({{it_level.size()}});
-      py::array_t<double> mask_volume({{it_level.size()}});
-      py::array_t<double> percomp_metric({{it_level.size(), n_comp}});
+      py::array_t<double> total_metric(it_level.size());
+      py::array_t<double> mask_volume(it_level.size());
+      py::array_t<double> percomp_metric({it_level.size(), n_comp});
       for(int i = 0; i < it_level.size(); i++)
       {
         total_metric.mutable_at(i) = it_level[i].TotalPerPixelMetric;

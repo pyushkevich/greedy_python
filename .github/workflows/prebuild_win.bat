@@ -14,6 +14,14 @@ if "%1" == "AMD64" (
 )
 
 REM Download VTK wheel
+mkdir -p install/vtk
+curl -L vtk-wheel-sdk-9.3.1-cp310-cp310-win_amd64.tar.xz -o ./be/install/vtk/vtk-wheel-sdk.tar.xz
+tar -xJvf ./be/install/vtk/vtk-wheel-sdk.tar.xz -C $PWD/be/install/vtk
+VTKDIR=$(dirname $(find $PWD/install/vtk -name vtk-config.cmake))
+
+
+
+
 REM
 REM git clone -b v9.3.1 https://github.com/Kitware/VTK.git VTK && ^
 REM cmake ^
