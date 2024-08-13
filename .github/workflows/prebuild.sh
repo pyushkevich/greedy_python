@@ -39,6 +39,7 @@ cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=./install \
     -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
     -B ITK/build \
     ITK
 
@@ -63,6 +64,7 @@ cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=./install \
     -DCMAKE_PREFIX_PATH="$PWD/install" \
+    -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
     -DVTK_DIR=$PWD/install/vtk/vtk-9.3.1.data/headers/cmake \
     -B greedy/build \
     greedy
