@@ -11,9 +11,9 @@ FETCH_DEPENDENCIES = {env="FETCH_DEPENDENCIES", default="ON"}
 CMAKE_PREFIX_PATH = {env="CMAKE_PREFIX_PATH"}
 
 [project]
-name = "picsl_c3d"
-version = "1.0.2"
-description = "Convert3D family of tools from the Penn Image Computing and Science Lab (PICSL)"
+name = "picsl_greedy"
+version = "0.0.1"
+description = "Greedy: Fast Deformable Registration for 2D and 3D Medical Images"
 readme = "README.md"
 license.file = "LICENSE"
 authors = [
@@ -43,7 +43,7 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/pyushkevich/c3d"
-Documentation = "https://github.com/pyushkevich/c3d/blob/master/doc/c3d.md"
+Homepage = "https://github.com/pyushkevich/greedy"
+Documentation = "https://greedy.readthedocs.io/en/latest/"
 
 
