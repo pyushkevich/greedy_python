@@ -4,13 +4,13 @@ set -x -e
 mkdir -p be/install && cd be
 
 # Download and build VTK
-if [[ $RUNNER_OS == "Linux" && $RUNNER_ARCH == "X64" ]]; then
+if [[ $1 =~ ubuntu-.* ]]; then
   VTK_BINARY=vtk-wheel-sdk-9.3.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.tar.xz
-elif [[ $RUNNER_OS == "macOS" && $RUNNER_ARCH == "X64" ]]; then
+elif [[ $1 == macos-14 ]]; then
   VTK_BINARY=vtk-wheel-sdk-9.3.1-cp310-cp310-macosx_10_10_x86_64.tar.xz
-elif [[ $RUNNER_OS == "macOS" && $RUNNER_ARCH == "ARM64" ]]; then
+elif [[ $1 == macos-13 ]]; then
   VTK_BINARY=vtk-wheel-sdk-9.3.1-cp310-cp310-macosx_11_0_arm64.tar.xz
-elif [[ $RUNNER_OS == "Windows" && $RUNNER_ARCH == "X64" ]]; then
+elif [[ $1 =~ windows-.* ]]; then
   VTK_BINARY=vtk-wheel-sdk-9.3.1-cp310-cp310-win_amd64.tar.xz
 else
   exit 255
