@@ -2,6 +2,12 @@ name: Build
 
 on:
   workflow_dispatch:
+    inputs:
+      debug_enabled:
+        type: boolean
+        description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
+        required: false
+        default: false
   push:
   release:
     types:
@@ -14,19 +20,29 @@ jobs:
     strategy:
       matrix:
         # os: [ubuntu-20.04,macos-13,macos-14,windows-2019]
-        os: [windows-2019]
+        os:
+          - windows-2019
+          vtk_url: https://www.vtk.org/files/release/9.3/vtk-wheel-sdk-9.3.1-cp310-cp310-win_amd64.tar.xz
+          - macos-14:
+          vtk_url: https://www.vtk.org/files/release/9.3/vtk-wheel-sdk-9.3.1-cp310-cp310-macosx_11_0_arm64.tar.xz
 
     steps:
-      - name: Install dependencies (Windows)
-        if: matrix.os == 'windows-2019'
-        run: |
-            choco install opengl
-            choco install glew
 
       - name: Checkout code
         uses: actions/checkout@v4
         with:
             submodules: true
+
+      - name: Download VTK binary
+          uses: actions/tool-cache@v2
+          with:
+            url: ${{ matrix.vtk_url }}
+            extract: true
+            dest: ./be/install/vtk
+
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.20.0
