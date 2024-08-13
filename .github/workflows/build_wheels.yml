@@ -40,6 +40,7 @@ jobs:
 
       - name: Extract VTK binary
         run: |
+          mkdir -p ./be/install/vtk
           tar -xJvf vtk-wheel-sdk.tar.xz -C ./be/install/vtk
 
       - name: Setup tmate session
