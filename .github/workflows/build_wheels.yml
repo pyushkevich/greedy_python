@@ -40,7 +40,7 @@ jobs:
             CIBW_ARCHS_WINDOWS: AMD64
             CIBW_SKIP: "*musllinux*"
             CIBW_BUILD_VERBOSITY: 1
-            CIBW_BEFORE_ALL: bash .github/workflows/prebuild.sh ${{ matrix.os }}Z
+            CIBW_BEFORE_ALL: bash .github/workflows/prebuild.sh ${{ matrix.os }}
             # CIBW_BEFORE_ALL_WINDOWS: powershell .github/workflows/prebuild_win.bat AMD64
             CIBW_ENVIRONMENT: >
                 FETCH_DEPENDENCIES=OFF CMAKE_PREFIX_PATH=be/install VTK_DIR=be/install/vtk/vtk-9.3.1.data/headers/cmake
