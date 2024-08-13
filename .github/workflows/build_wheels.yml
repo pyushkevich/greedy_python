@@ -42,13 +42,13 @@ jobs:
         run: |
           curl -L ${{ matrix.vtk_url }} -o ./be/install/vtk/vtk-wheel-sdk.tar.xz
 
-      - name: Extract VTK binary
-        run: |
-          tar -xJvf ./be/install/vtk/vtk-wheel-sdk.tar.xz -C ./be/install/vtk
-
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
+
+      - name: Extract VTK binary
+        run: |
+          tar -xJvf ./be/install/vtk/vtk-wheel-sdk.tar.xz -C ./be/install/vtk
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.20.0
