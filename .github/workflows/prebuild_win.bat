@@ -13,28 +13,29 @@ if "%1" == "AMD64" (
     set ARCH=Win32
 )
 
-REM Build VTK
-git clone -b v9.3.1 https://github.com/Kitware/VTK.git VTK && ^
-cmake ^
-    -DBUILD_EXAMPLES=OFF ^
-    -DBUILD_TESTING=OFF ^
-    -DBUILD_SHARED_LIBS=OFF ^
-    -DVTK_MODULE_ENABLE_VTK_IOGeometry=YES ^
-    -DVTK_MODULE_ENABLE_VTK_IOPLY=YES ^
-    -DVTK_MODULE_ENABLE_VTK_IOLegacy=YES ^
-    -DVTK_MODULE_ENABLE_VTK_IOXML=YES ^
-    -DVTK_MODULE_ENABLE_VTK_CommonCore=YES ^
-    -DVTK_MODULE_ENABLE_VTK_CommonDataModel=YES ^
-    -DVTK_MODULE_ENABLE_VTK_CommonExecutionModel=YES ^
-    -DVTK_MODULE_ENABLE_VTK_FiltersCore=YES ^
-    -DVTK_BUILD_ALL_MODULES=OFF ^
-    -DVTK_REQUIRED_OBJCXX_FLAGS="" ^
-    -DCMAKE_BUILD_TYPE=Release ^
-    -DCMAKE_INSTALL_PREFIX=.\be\install ^
-    -B c:\prebuild\vtk ^
-    VTK && ^
-cmake --build c:\prebuild\vtk --config Release --target install -- -m
-if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
+REM Download VTK wheel
+REM
+REM git clone -b v9.3.1 https://github.com/Kitware/VTK.git VTK && ^
+REM cmake ^
+REM     -DBUILD_EXAMPLES=OFF ^
+REM     -DBUILD_TESTING=OFF ^
+REM     -DBUILD_SHARED_LIBS=OFF ^
+REM     -DVTK_MODULE_ENABLE_VTK_IOGeometry=YES ^
+REM     -DVTK_MODULE_ENABLE_VTK_IOPLY=YES ^
+REM     -DVTK_MODULE_ENABLE_VTK_IOLegacy=YES ^
+REM     -DVTK_MODULE_ENABLE_VTK_IOXML=YES ^
+REM     -DVTK_MODULE_ENABLE_VTK_CommonCore=YES ^
+REM     -DVTK_MODULE_ENABLE_VTK_CommonDataModel=YES ^
+REM     -DVTK_MODULE_ENABLE_VTK_CommonExecutionModel=YES ^
+REM     -DVTK_MODULE_ENABLE_VTK_FiltersCore=YES ^
+REM     -DVTK_BUILD_ALL_MODULES=OFF ^
+REM     -DVTK_REQUIRED_OBJCXX_FLAGS="" ^
+REM     -DCMAKE_BUILD_TYPE=Release ^
+REM     -DCMAKE_INSTALL_PREFIX=.\be\install ^
+REM     -B c:\prebuild\vtk ^
+REM     VTK && ^
+REM cmake --build c:\prebuild\vtk --config Release --target install -- -m
+REM if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
 
 REM Build ITK
 git clone -b v5.4.0 https://github.com/InsightSoftwareConsortium/ITK.git ITK && ^
@@ -46,18 +47,18 @@ cmake ^
     -DCMAKE_INSTALL_PREFIX=.\be\install ^
     -B c:\prebuild\itk ^
     ITK && ^
-cmake --build c:\prebuild\itk --config Release --target install -- -m
-if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
+REM cmake --build c:\prebuild\itk --config Release --target install -- -m
+REM if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
 
 REM Build Greedy
 git clone -b master https://github.com/pyushkevich/greedy.git greedy && ^
 cmake ^
     -DCMAKE_BUILD_TYPE=Release ^
-    -DCMAKE_PREFIX_PATH=.\be\install ^
+    -DCMAKE_PREFIX_PATH=.\be\install;.\be\install\vtk\vtk-9.3.1.data\headers\cmake\vtk-config.cmake ^
     -DCMAKE_INSTALL_PREFIX=.\be\install ^
     -B c:\prebuild\greedy ^
     greedy && ^
-cmake --build c:\prebuild\greedy --config Release --target install -- -m
-if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
+REM cmake --build c:\prebuild\greedy --config Release --target install -- -m
+REM if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
 
 endlocal
