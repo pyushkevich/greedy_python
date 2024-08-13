@@ -39,7 +39,7 @@ jobs:
             CIBW_BEFORE_ALL: bash .github/workflows/prebuild.sh
             # CIBW_BEFORE_ALL_WINDOWS: powershell .github/workflows/prebuild_win.bat AMD64
             CIBW_ENVIRONMENT: >
-                FETCH_DEPENDENCIES=OFF CMAKE_PREFIX_PATH=be/install
+                FETCH_DEPENDENCIES=OFF CMAKE_PREFIX_PATH=be/install VTK_DIR=be/install/vtk/vtk-9.3.1.data/headers/cmake
 
       - uses: actions/upload-artifact@v4
         with:

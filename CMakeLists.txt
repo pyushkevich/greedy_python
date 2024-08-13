@@ -51,7 +51,7 @@ IF(FETCH_DEPENDENCIES)
     )
     FetchContent_MakeAvailable(VTK)
     SET(VTK_DIR ${vtk_BINARY_DIR})
-    FIND_PACKAGE(VTK 9.1.0 REQUIRED COMPONENTS CommonCore IOCore IOLegacy IOPLY IOGeometry FiltersModeling)
+    FIND_PACKAGE(VTK REQUIRED COMPONENTS CommonCore IOCore IOLegacy IOPLY IOGeometry FiltersModeling)
     
     # Dependency: Greedy
     FetchContent_Declare(
@@ -69,16 +69,16 @@ ELSE()
     FIND_PACKAGE(ITK REQUIRED)
     INCLUDE(${ITK_USE_FILE})
 
-    # FIND_PACKAGE(VTK 9.1.0 REQUIRED COMPONENTS CommonCore IOCore IOLegacy IOPLY IOGeometry FiltersModeling)
+    FIND_PACKAGE(VTK REQUIRED COMPONENTS CommonCore IOCore IOLegacy IOPLY IOGeometry FiltersModeling)
 
     FIND_PACKAGE(Greedy REQUIRED)
 
 ENDIF()
 
 # Set up VTK
-#vtk_module_autoinit(
-#  TARGETS greedyapi
-#  MODULES ${VTK_LIBRARIES})
+vtk_module_autoinit(
+  TARGETS greedyapi
+  MODULES ${VTK_LIBRARIES})
 
 # Python bindings
 IF(NOT DEPENDENCIES_ONLY)
@@ -87,7 +87,6 @@ IF(NOT DEPENDENCIES_ONLY)
     INCLUDE_DIRECTORIES(external/pybind11)
     pybind11_add_module(picsl_greedy src/GreedyPythonBindings.cxx)
     TARGET_INCLUDE_DIRECTORIES(picsl_greedy PRIVATE ${Greedy_INCLUDE_DIRS})
-    # TARGET_LINK_LIBRARIES(picsl_greedy PUBLIC ${ITK_LIBRARIES} ${VTK_LIBRARIES} greedyapi)
-    TARGET_LINK_LIBRARIES(picsl_greedy PUBLIC ${ITK_LIBRARIES} greedyapi)
+    TARGET_LINK_LIBRARIES(picsl_greedy PUBLIC ${ITK_LIBRARIES} ${VTK_LIBRARIES} greedyapi)
     install(TARGETS picsl_greedy DESTINATION .)
 ENDIF()
