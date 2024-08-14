@@ -8,6 +8,11 @@ on:
         description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
         required: false
         default: false
+      release_pypi:
+        type: boolean
+        description: 'Upload wheels to PyPI?'
+        required: false
+        default: false
   push:
   release:
     types:
@@ -76,7 +81,7 @@ jobs:
     permissions:
       id-token: write
     runs-on: ubuntu-latest
-    if: github.event_name == 'release' && github.event.action == 'published'
+    if: (github.event_name == 'release' && github.event.action == 'published' || (github.event_name == 'workflow_dispatch' && inputs.release_pypi)
     steps:
     - uses: actions/download-artifact@v4
       with:
