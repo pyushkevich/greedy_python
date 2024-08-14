@@ -81,7 +81,7 @@ jobs:
     permissions:
       id-token: write
     runs-on: ubuntu-latest
-    if: (github.event_name == 'release' && github.event.action == 'published' || (github.event_name == 'workflow_dispatch' && inputs.release_pypi)
+    if: (github.event_name == 'release' && github.event.action == 'published') || (github.event_name == 'workflow_dispatch' && inputs.release_pypi)
     steps:
     - uses: actions/download-artifact@v4
       with:
