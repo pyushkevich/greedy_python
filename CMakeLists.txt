@@ -78,7 +78,7 @@ ENDIF()
 
 # Set up VTK
 vtk_module_autoinit(
-  TARGETS greedyapi
+  TARGETS greedyapi lmshoot_lib
   MODULES ${VTK_LIBRARIES})
 
 # Python bindings
@@ -88,6 +88,6 @@ IF(NOT DEPENDENCIES_ONLY)
     INCLUDE_DIRECTORIES(external/pybind11)
     pybind11_add_module(picsl_greedy src/GreedyPythonBindings.cxx)
     TARGET_INCLUDE_DIRECTORIES(picsl_greedy PRIVATE ${Greedy_INCLUDE_DIRS})
-    TARGET_LINK_LIBRARIES(picsl_greedy PUBLIC ${ITK_LIBRARIES} ${VTK_LIBRARIES} greedyapi lmshoot)
+    TARGET_LINK_LIBRARIES(picsl_greedy PUBLIC ${ITK_LIBRARIES} ${VTK_LIBRARIES} greedyapi lmshoot_lib)
     install(TARGETS picsl_greedy DESTINATION .)
 ENDIF()
