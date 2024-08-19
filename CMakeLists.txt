@@ -54,6 +54,7 @@ IF(FETCH_DEPENDENCIES)
     FIND_PACKAGE(VTK REQUIRED COMPONENTS CommonCore IOCore IOLegacy IOPLY IOGeometry FiltersModeling)
     
     # Dependency: Greedy
+    SET(GREEDY_BUILD_LDDMM ON CACHE BOOL "" FORCE)
     FetchContent_Declare(
         Greedy
         GIT_REPOSITORY https://github.com/pyushkevich/greedy.git

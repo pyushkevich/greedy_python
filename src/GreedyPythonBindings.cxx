@@ -23,6 +23,7 @@
 
 =========================================================================*/
 #include <GreedyAPI.h>
+#include <CommandLineHelper.h>
 #include "pybind11/pybind11.h"
 #include "pybind11/stl.h"
 #include "pybind11/numpy.h"
@@ -282,8 +283,9 @@ public:
       SetCachedObject(it.first.cast<std::string>(), it.second.cast<py::object>());
 
     // Parse the command line to generate parameters
-    GreedyParameters param = greedy_parse_commandline(
-      cmd.c_str(), 0, false, api.GetCachedObjectNames());
+    CommandLineHelper cl(cmd.c_str());
+    cl.set_file_check_bypass_labels(api.GetCachedObjectNames());
+    GreedyParameters param = greedy_parse_commandline(cl, false);
 
     // Run the algorithm
     api.Run(param);
@@ -385,9 +387,72 @@ void instantiate_greedy(py::handle m, const char *name)
     ;
 }
 
+#include <PointSetGeodesicShooting.h>
+#include <PointSetGeodesicToWarp.h>
+
+template <typename TPixel, unsigned int VDim>
+class LMShootAPIWrapper
+{
+public:
+
+  void ExecuteFit(
+    const string &cmd, py::object sout, py::object serr, const py::kwargs& kwargs)
+  {
+    // Redirect the outputs if needed
+    py::scoped_ostream_redirect r_out(std::cout, sout);
+    py::scoped_ostream_redirect r_err(std::cerr, serr);
+
+    // Parse the command line to generate parameters
+    CommandLineHelper cl(cmd.c_str());
+    auto param = lmshoot_parse_commandline(cl, false);
+    PointSetShootingProblem<TPixel, VDim>::minimize(param);
+  }
+
+  void ExecuteApply(
+    const string &cmd, py::object sout, py::object serr, const py::kwargs& kwargs)
+  {
+    // Redirect the outputs if needed
+    py::scoped_ostream_redirect r_out(std::cout, sout);
+    py::scoped_ostream_redirect r_err(std::cerr, serr);
+
+           // Parse the command line to generate parameters
+    CommandLineHelper cl(cmd.c_str());
+    auto param = lmtowarp_parse_commandline(cl, false);
+    PointSetGeodesicToWarp<TPixel, VDim>::run(param);
+  }
+};
+
+
+template <typename TPixel, unsigned int VDim>
+void instantiate_lmshoot(py::handle m, const char *name)
+{
+  using API = LMShootAPIWrapper<TPixel, VDim>;
+  py::class_<API>(m, name, "Python API for the PICSL lmshoot tool")
+    .def(py::init<>([]() {
+      auto *c = new API();
+      return c;
+    }))
+    .def("fit", &API::ExecuteFit,
+         "Execute one or more commands using the lmshoot command line interface",
+         py::arg("command"),
+         py::arg("out") = py::module_::import("sys").attr("stdout"),
+         py::arg("err") = py::module_::import("sys").attr("stdout"))
+    .def("apply", &API::ExecuteApply,
+         "Execute one or more commands using the lmshoot command line interface",
+         py::arg("command"),
+         py::arg("out") = py::module_::import("sys").attr("stdout"),
+         py::arg("err") = py::module_::import("sys").attr("stdout"))
+    ;
+}
+
 PYBIND11_MODULE(picsl_greedy, m) {
   instantiate_greedy<double, 2>(m, "Greedy2D");
   instantiate_greedy<double, 3>(m, "Greedy3D");
   instantiate_greedy<float, 2>(m, "GreedyFloat2D");
   instantiate_greedy<float, 3>(m, "GreedyFloat3D");
+
+  instantiate_lmshoot<double, 2>(m, "LMShoot2D");
+  instantiate_lmshoot<double, 3>(m, "LMShoot3D");
+  instantiate_lmshoot<float, 2>(m, "LMShootFloat2D");
+  instantiate_lmshoot<float, 3>(m, "LMShootFloat3D");
 };
