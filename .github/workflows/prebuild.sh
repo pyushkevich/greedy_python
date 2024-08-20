@@ -23,7 +23,7 @@ else
 fi
 
 # Install Eigen
-git clone -b 3.4.0 https://github.com/libigl/eigen
+git clone -b 3.4.0 https://gitlab.com/libeigen/eigen.git
 cmake \
     -DBUILD_EXAMPLES=OFF \
     -DBUILD_TESTING=OFF \
