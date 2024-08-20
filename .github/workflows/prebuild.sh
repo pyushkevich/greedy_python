@@ -63,6 +63,7 @@ git clone -b master https://github.com/pyushkevich/greedy.git greedy
 cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=./install \
+    -DGREEDY_BUILD_LMSHOOT=ON \
     -DCMAKE_PREFIX_PATH="$PWD/install" \
     -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
     -DVTK_DIR=$PWD/install/vtk/vtk-9.3.1.data/headers/cmake \
