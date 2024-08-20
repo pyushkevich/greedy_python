@@ -22,6 +22,18 @@ else
   exit 255
 fi
 
+# Install Eigen
+git clone -b 3.4.0 https://github.com/libigl/eigen
+cmake \
+    -DBUILD_EXAMPLES=OFF \
+    -DBUILD_TESTING=OFF \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=./install \
+    -B eigen/build \
+    eigen
+
+cmake --build eigen/build --target install $MAKEFLAGS
+
 # Install VTK from binary wheels provided by Kitware
 mkdir -p install/vtk install/vtk/shared
 curl -L https://www.vtk.org/files/release/9.3/${VTK_BINARY} -o ./install/vtk/vtk-wheel-sdk.tar.xz
