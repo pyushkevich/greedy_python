@@ -34,6 +34,13 @@ jobs:
         with:
             submodules: true
 
+      - name: Install Eigen3
+        uses: kupns-aka-kupa/setup-eigen3@v1
+        with:
+          version: 3.4.0
+        # env:
+        #   CMAKE_GENERATOR: ${{ matrix.gen }}
+
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
