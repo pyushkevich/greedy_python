@@ -38,7 +38,11 @@ cmake --build eigen/build --target install $MAKEFLAGS
 mkdir -p install/vtk install/vtk/shared
 curl -L https://www.vtk.org/files/release/9.3/${VTK_BINARY} -o ./install/vtk/vtk-wheel-sdk.tar.xz
 tar -xJvf ./install/vtk/vtk-wheel-sdk.tar.xz --strip-components 1 -C $PWD/install/vtk
-ln $(find $PWD/install/vtk/build -name "*.${DYLD_SUFFIX}") install/vtk/shared
+if [[ $1 =~ windows-.* ]]; then
+  ln $(find $PWD/install/vtk/bin -name "*.${DYLD_SUFFIX}") install/vtk/shared
+else
+  ln $(find $PWD/install/vtk/build -name "*.${DYLD_SUFFIX}") install/vtk/shared
+fi
 
 # Link the shared libraries needed for delocate into a simple directory
 
