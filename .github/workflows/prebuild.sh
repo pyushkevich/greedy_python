@@ -59,6 +59,7 @@ cmake \
     -DCMAKE_INSTALL_PREFIX=./install \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -B ITK/build \
     ITK
 
