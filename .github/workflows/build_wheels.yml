@@ -81,18 +81,18 @@ jobs:
       with:
         path: dist/*.tar.gz
 
-  upload_all:
-    needs: [build_wheels, make_sdist]
-    environment: pypi
-    permissions:
-      id-token: write
-    runs-on: ubuntu-latest
-    if: (github.event_name == 'release' && github.event.action == 'published') || (github.event_name == 'workflow_dispatch' && inputs.release_pypi)
-    steps:
-    - uses: actions/download-artifact@v4
-      with:
-        pattern: cibw-*
-        path: dist
-        merge-multiple: true
+  # upload_all:
+  #   needs: [build_wheels, make_sdist]
+  #   environment: pypi
+  #   permissions:
+  #     id-token: write
+  #   runs-on: ubuntu-latest
+  #   if: (github.event_name == 'release' && github.event.action == 'published') || (github.event_name == 'workflow_dispatch' && inputs.release_pypi)
+  #   steps:
+  #   - uses: actions/download-artifact@v4
+  #     with:
+  #       pattern: cibw-*
+  #       path: dist
+  #       merge-multiple: true
 
-    - uses: pypa/gh-action-pypi-publish@release/v1
+  #   - uses: pypa/gh-action-pypi-publish@release/v1
