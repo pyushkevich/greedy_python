@@ -9,6 +9,7 @@ cmake --version
 mkdir -p be/install && cd be
 
 # Download and build VTK
+LIB_LOCATION=build
 if [[ $1 =~ ubuntu-.* ]]; then
   VTK_BINARY=vtk-wheel-sdk-9.3.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.tar.xz
   DYLD_SUFFIX=so
@@ -23,6 +24,7 @@ elif [[ $1 == macos-14 ]]; then
 elif [[ $1 =~ windows-.* ]]; then
   VTK_BINARY=vtk-wheel-sdk-9.3.1-cp310-cp310-win_amd64.tar.xz
   DYLD_SUFFIX=dll
+  LIB_LOCATION=bin
 else
   exit 255
 fi
@@ -43,11 +45,7 @@ cmake --build eigen/build --target install $MAKEFLAGS
 mkdir -p install/vtk install/vtk/shared
 curl -L https://www.vtk.org/files/release/9.3/${VTK_BINARY} -o ./install/vtk/vtk-wheel-sdk.tar.xz
 tar -xJvf ./install/vtk/vtk-wheel-sdk.tar.xz --strip-components 1 -C $PWD/install/vtk
-if [[ $1 =~ windows-.* ]]; then
-  ln $(find $PWD/install/vtk/bin -name "*.${DYLD_SUFFIX}") install/vtk/shared
-else
-  ln $(find $PWD/install/vtk/build -name "*.${DYLD_SUFFIX}") install/vtk/shared
-fi
+ln $(find $PWD/install/vtk/${LIB_LOCATION} -name "*.${DYLD_SUFFIX}") install/vtk/shared
 
 # Link the shared libraries needed for delocate into a simple directory
 
