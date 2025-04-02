@@ -1,6 +1,11 @@
 #!/bin/bash
 set -x -e 
 
+pip install --upgrade pip setuptools wheel cmake ninja
+
+echo "Check CMAKE version"
+cmake --version
+
 mkdir -p be/install && cd be
 
 # Download and build VTK
