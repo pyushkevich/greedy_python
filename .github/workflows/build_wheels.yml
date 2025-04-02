@@ -33,7 +33,7 @@ jobs:
       matrix:
         ### debug        
         # os: [ubuntu-20.04,macos-13,macos-14,windows-2019]
-        os: [windows-2019]
+        os: [windows-latest]
         # os: [ubuntu-20.04,macos-14,macos-13]
         ### debug        
 
