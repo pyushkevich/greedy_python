@@ -1,9 +1,11 @@
 name: Build
 
 on:
+### debug        
   pull_request:
     branches:
       - main
+### debug        
   workflow_dispatch:
     inputs:
       debug_enabled:
@@ -16,10 +18,12 @@ on:
         description: 'Upload wheels to PyPI?'
         required: false
         default: false
-  push:
-  release:
-    types:
-      - published
+### debug        
+  # push:
+  # release:
+  #   types:
+  #     - published
+### debug        
 
 jobs:
   build_wheels:
@@ -27,9 +31,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        ### debug        
         # os: [ubuntu-20.04,macos-13,macos-14,windows-2019]
         os: [windows-2019]
         # os: [ubuntu-20.04,macos-14,macos-13]
+        ### debug        
 
     steps:
 
