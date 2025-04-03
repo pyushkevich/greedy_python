@@ -25,6 +25,7 @@ elif [[ $1 =~ windows-.* ]]; then
   VTK_BINARY=vtk-wheel-sdk-9.3.1-cp310-cp310-win_amd64.tar.xz
   DYLD_SUFFIX=dll
   LIB_LOCATION=bin
+  CMAKE_RELEASE_COMMAND="--config Release"
 else
   exit 255
 fi
@@ -39,7 +40,7 @@ cmake \
     -B eigen/build \
     eigen
 
-cmake --build eigen/build --target install $MAKEFLAGS --config Release
+cmake --build eigen/build --target install $MAKEFLAGS $CMAKE_RELEASE_COMMAND
 
 # Install VTK from binary wheels provided by Kitware
 mkdir -p install/vtk install/vtk/shared
@@ -62,7 +63,7 @@ cmake \
     -B ITK/build \
     ITK
 
-cmake --build ITK/build --target install $MAKEFLAGS --config Release
+cmake --build ITK/build --target install $MAKEFLAGS $CMAKE_RELEASE_COMMAND
 
 #git clone -b v9.3.1 https://github.com/Kitware/VTK.git VTK
 #cmake \
@@ -88,4 +89,4 @@ cmake \
     -B greedy/build \
     greedy
 
-cmake --build greedy/build --target install $MAKEFLAGS --config Release
+cmake --build greedy/build --target install $MAKEFLAGS $CMAKE_RELEASE_COMMAND
