@@ -39,7 +39,7 @@ cmake \
     -B eigen/build \
     eigen
 
-cmake --build eigen/build --target install $MAKEFLAGS
+cmake --build eigen/build --target install $MAKEFLAGS --config Release
 
 # Install VTK from binary wheels provided by Kitware
 mkdir -p install/vtk install/vtk/shared
@@ -62,7 +62,7 @@ cmake \
     -B ITK/build \
     ITK
 
-cmake --build ITK/build --target install $MAKEFLAGS
+cmake --build ITK/build --target install $MAKEFLAGS --config Release
 
 #git clone -b v9.3.1 https://github.com/Kitware/VTK.git VTK
 #cmake \
@@ -74,7 +74,7 @@ cmake --build ITK/build --target install $MAKEFLAGS
 #    -DCMAKE_INSTALL_PREFIX=./install \
 #    -B VTK/build \
 #    VTK
-#cmake --build VTK/build --target install
+#cmake --build VTK/build --target install --config Release
 
 # Build Greedy
 ### debug
