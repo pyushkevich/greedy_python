@@ -78,7 +78,7 @@ cmake --build ITK/build --target install $MAKEFLAGS $CMAKE_RELEASE_COMMAND
 #cmake --build VTK/build --target install --config Release
 
 # Build Greedy
-git clone -b python_api_win_fix https://github.com/pyushkevich/greedy.git greedy
+git clone -b master https://github.com/pyushkevich/greedy.git greedy
 cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=./install \
