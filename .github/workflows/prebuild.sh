@@ -57,7 +57,6 @@ cmake \
     -DBUILD_TESTING=OFF \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=./install \
-    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
     -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -B ITK/build \
@@ -73,7 +72,6 @@ cmake --build ITK/build --target install $MAKEFLAGS
 #    -DBUILD_SHARED_LIBS=OFF \
 #    -DVTK_REQUIRED_OBJCXX_FLAGS="" \
 #    -DCMAKE_INSTALL_PREFIX=./install \
-#    -DCMAKE_BUILD_TYPE=Release \
 #    -B VTK/build \
 #    VTK
 #cmake --build VTK/build --target install
@@ -92,4 +90,4 @@ cmake \
     -B greedy/build \
     greedy
 
-cmake --build greedy/build --target install $MAKEFLAGS
+cmake --build greedy/build --target install $MAKEFLAGS --config Release
