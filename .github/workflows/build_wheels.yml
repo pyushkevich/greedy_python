@@ -1,11 +1,9 @@
 name: Build
 
 on:
-### debug        
   pull_request:
     branches:
       - main
-### debug        
   workflow_dispatch:
     inputs:
       debug_enabled:
@@ -18,12 +16,10 @@ on:
         description: 'Upload wheels to PyPI?'
         required: false
         default: false
-### debug        
-  # push:
-  # release:
-  #   types:
-  #     - published
-### debug        
+  push:
+  release:
+    types:
+      - published
 
 jobs:
   build_wheels:
@@ -31,11 +27,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        ### debug        
-        # os: [ubuntu-20.04,macos-13,macos-14,windows-2019]
-        os: [windows-latest]
-        # os: [ubuntu-20.04,macos-14,macos-13]
-        ### debug        
+        os: [ubuntu-20.04,macos-13,macos-14,windows-latest]
 
     steps:
 
@@ -89,18 +81,18 @@ jobs:
       with:
         path: dist/*.tar.gz
 
-  # upload_all:
-  #   needs: [build_wheels, make_sdist]
-  #   environment: pypi
-  #   permissions:
-  #     id-token: write
-  #   runs-on: ubuntu-latest
-  #   if: (github.event_name == 'release' && github.event.action == 'published') || (github.event_name == 'workflow_dispatch' && inputs.release_pypi)
-  #   steps:
-  #   - uses: actions/download-artifact@v4
-  #     with:
-  #       pattern: cibw-*
-  #       path: dist
-  #       merge-multiple: true
+  upload_all:
+    needs: [build_wheels, make_sdist]
+    environment: pypi
+    permissions:
+      id-token: write
+    runs-on: ubuntu-latest
+    if: (github.event_name == 'release' && github.event.action == 'published') || (github.event_name == 'workflow_dispatch' && inputs.release_pypi)
+    steps:
+    - uses: actions/download-artifact@v4
+      with:
+        pattern: cibw-*
+        path: dist
+        merge-multiple: true
 
-  #   - uses: pypa/gh-action-pypi-publish@release/v1
+    - uses: pypa/gh-action-pypi-publish@release/v1
