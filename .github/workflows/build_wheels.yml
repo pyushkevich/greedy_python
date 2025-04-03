@@ -63,11 +63,10 @@ jobs:
                 DYLD_LIBRARY_PATH=./be/install/vtk/shared delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel}
             CIBW_REPAIR_WHEEL_COMMAND_LINUX: >
                 LD_LIBRARY_PATH=/project/be/install/vtk/shared auditwheel repair -w {dest_dir} {wheel}
+            CIBW_BEFORE_BUILD_WINDOWS: >
+                pip install delvewheel
             CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: >
-                # Set the path to the directory where the repaired wheel will be saved
-                WHEEL_DIR=./wheelhouse
-                # Use the delocate tool to repair the wheel
-                delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel}
+                delvewheel repair -w {dest_dir} {wheel}
             MACOSX_DEPLOYMENT_TARGET: 10.13
 
       - uses: actions/upload-artifact@v4
