@@ -1,7 +1,7 @@
 #!/bin/bash
 set -x -e 
 
-pip install --upgrade pip setuptools wheel cmake ninja
+python -m pip install --upgrade pip setuptools wheel cmake ninja
 
 echo "Check CMAKE version"
 cmake --version
