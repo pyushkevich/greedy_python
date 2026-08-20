@@ -3,12 +3,6 @@ set -x -e
 
 python -m pip install --upgrade pip setuptools wheel cmake ninja
 
-echo "Install CMAKE prerequisites"
-if [[ $1 =~ ubuntu-.* ]]; then
-    apt-get update
-    apt-get install -y libatomic1
-fi
-
 echo "Check CMAKE version"
 cmake --version
 
