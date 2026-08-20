@@ -109,7 +109,7 @@ fi
 # Link the shared libraries needed for delocate into a simple directory
 
 # Build ITK
-git clone -b v5.2.1 https://github.com/InsightSoftwareConsortium/ITK.git ITK
+git clone -b v5.4.7 https://github.com/InsightSoftwareConsortium/ITK.git ITK
 cmake \
     -DModule_MorphologicalContourInterpolation=ON \
     -DBUILD_EXAMPLES=OFF \
