@@ -15,15 +15,8 @@ ls -lh ..
 # Download and build VTK
 LIB_LOCATION=build
 if [[ $1 =~ ubuntu-.* ]]; then
-  # Kitware publishes the VTK wheel-SDK for x86_64 only; there is no linux aarch64
-  # build at any released version, so on aarch64 we build VTK from source instead.
-  # Note this branch previously matched on OS alone, so an arm runner would have
-  # downloaded the x86_64 SDK.
-  if [[ "$(uname -m)" == "aarch64" || "$(uname -m)" == "arm64" ]]; then
-    VTK_FROM_SOURCE=1
-  else
-    VTK_BINARY=vtk-wheel-sdk-9.3.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.tar.xz
-  fi
+  # Just build VTK from source
+  VTK_FROM_SOURCE=1
   LIB_SUFFIX=so
   MAKEFLAGS="-- -j 8"
 elif [[ $1 =~ macos-.*-large ]]; then
